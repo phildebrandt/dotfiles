@@ -1,32 +1,38 @@
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+
 [user]
-  email = kevin@rockwood.me
-  name = Kevin Rockwood
+	name = Patrick Hildebrandt
+	email = phildebrandt@gmail.com
+
+[core]
+	excludesfile = /Users/phildebrandt/.gitignore_global
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[pull]
+	rebase = true
+[color]
+	ui = true
+	status = true
 
 [alias]
-  # View abbreviated SHA, description, and history graph of the latest 20 commits
-  l = log --color --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) %an %Creset' --abbrev-commit
-  # View the current working tree status using the short format
-  st = status -sb
-  # Show the diff between the latest commit and the current state
-  d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-  # Clone a repository including all submodules
-  c = clone --recursive
-  # Commit all changes
-  ca = !git add -A && git commit -av
-  # Show verbose output about tags, branches or remotes
-  tags = tag -l
-  br = branch
-  brs = branch -a
-  co = checkout
-  remotes = remote -v
-  # Interactive rebase with the given number of latest commits
-  reb = "!r() { git rebase -i HEAD~$1; }; r"
-  # Open SourceTree
-  tree = "!open -a SourceTree ."
-  # Pull with rebase
-  tug = pull --rebase
-  # Delete all merged branches
-  clean-branches = "!git branch --merged | grep -v '\\*\\|master' | xargs -n 1 git branch -d"
+	co = checkout
+	c = commit
+	ca = commit -a --verbose
+    	cm = commit -m
+    	cam = commit -a -m
+	s = status
+	pullom = pull origin master
+	pushom = push origin master
 
 [core]
   # Use custom `.gitignore` and `.gitattributes`
